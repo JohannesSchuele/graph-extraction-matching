@@ -1,7 +1,9 @@
 import cv2
-import matplotlib.pyplot as plt
 import networkx as nx
-import numpy as np
+from configs.plot.colours import *
+from configs.plot.config_plots import *
+from configs.config import *
+
 
 from tools.images import get_rgb, overlay_border
 
@@ -11,6 +13,17 @@ bgr_green = (0, 255, 0)
 bgr_red = (0, 0, 255)
 bgr_yellow = (0, 255, 255)
 bgr_white = (255, 255, 255)
+
+
+def visualize_image(img, size_width=3.75, size_height=3.75, title=''):
+    fig, ax = generate_mpl_figure(size_width=size_width, size_height=size_height)
+    # ax.imshow(img, cmap = 'gray', vmin = 0, vmax = 1.0)
+    ax.imshow(img)
+    ax.axis('on')
+    ax.set_title(title)
+    fig.tight_layout()
+    # fig.show()
+    return fig, ax
 
 
 def plot_img(img, cmap=None, title=""):

@@ -4,32 +4,42 @@ import cv2
 import matplotlib.pyplot as plt
 from tools_graph.utilz_analysis import plot_nodes_on_img
 
-# def get_camera_params_original():
-#     h=128
-#     w=128
-#
-#     # camera parameters: ret, mtx, dist, rvecs, tvecs
-#     fx = 1  #1058
-#     fy = 1  #1041
-#     cx = w/2
-#     cy = h/2
-#
-#     # distortion parameters
-#     k1 = 0.0
-#     k2 = 0.0
-#     p1 = 0.00
-#     p2 = 0.0
-#
-#     # convert for opencv
-#     mtx = np.matrix([
-#         [fx,  0, cx],
-#         [ 0, fy, cy],
-#         [ 0,  0,  1]
-#     ], dtype = "float32")
-#
-#     dist = np.array([k1, k2, p1, p2], dtype = "float32")
-#     cameraparams = [0, mtx, dist]
-#     return cameraparams
+
+def get_camera_params_distortion():
+    h = 128
+    w = 128
+    # camera parameters: ret, mtx, dist, rvecs, tvecs
+    fx = 1.1  # 1058 #ToDo f is not adapting node postions
+    fy = 1.2  # 1041
+    cx = w / 3
+    cy = h / 2
+
+    fx = 1.0  # 1058 #ToDo f is not adapting node postions
+    fy = 0.7  # 1041
+    cx = w / 3
+    cy = h / 2
+
+    # # distortion parameters
+    # k1 = 0.00000025
+    # k2 = 0.000000025
+    # p1 = -0.0025
+    # p2 = -0.0015
+
+    # distortion parameters
+    k1 = 0.0000615
+    k2 = 0.0
+    p1 = -0.0000425
+    p2 = 0.0000615
+    # convert for opencv
+    mtx = np.matrix([
+        [fx, 0, cx],
+        [0, fy, cy],
+        [0, 0, 1]
+    ], dtype="float32")
+
+    dist = np.array([k1, k2, p1, p2], dtype="float32")
+    cameraparams = [0, mtx, dist]
+    return cameraparams
 
 def get_camera_params():
     h=128
