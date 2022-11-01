@@ -1,5 +1,3 @@
-from typing import List
-
 import cv2
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -7,7 +5,7 @@ import numpy as np
 
 from tools.images import get_rgb, overlay_border
 
-node_size: int = 2
+node_size: int = 3
 bgr_blue = (255, 0, 0)
 bgr_green = (0, 255, 0)
 bgr_red = (0, 0, 255)
@@ -22,22 +20,17 @@ def plot_img(img, cmap=None, title=""):
     plt.title(title)
 
 
-def plot_bgr_img(img, title="", show: bool = False):
+def plot_bgr_img(img, title=""):
     n_channels = img.shape[2] if len(img.shape) >= 3 else 1
     cmap = "gray" if n_channels == 1 else None
 
     image = get_rgb(img)
 
-    if show:
-        plt.figure()
-
+    plt.figure()
     plt.imshow(image, cmap=cmap)
     plt.xticks([])
     plt.yticks([])
     plt.title(title)
-
-    if show:
-        plt.show()
 
 
 def plot_graph_on_img_straight(
@@ -92,10 +85,6 @@ def plot_landmarks_img(
 
 
 def node_types_image(nodes, image_length=None, skeleton=None):
-    if skeleton is not None:
-        if np.max(skeleton) == 1:
-            skeleton = skeleton * 255
-
     img = (
         cv2.cvtColor(skeleton.copy(), cv2.COLOR_GRAY2RGB)
         if skeleton is not None
@@ -103,13 +92,13 @@ def node_types_image(nodes, image_length=None, skeleton=None):
     )
 
     for xy in nodes.end_nodes_xy:
-        cv2.circle(img, tuple(xy), node_size, bgr_red, -1)
+        cv2.circle(img, xy, node_size, bgr_red, -1)
 
     for xy in nodes.crossing_nodes_xy:
-        cv2.circle(img, tuple(xy), node_size, bgr_blue, -1)
+        cv2.circle(img, xy, node_size, bgr_blue, -1)
 
     for xy in nodes.border_nodes_xy:
-        cv2.circle(img, tuple(xy), node_size, bgr_yellow, -1)
+        cv2.circle(img, xy, node_size, bgr_yellow, -1)
 
     return img
 
@@ -188,33 +177,3 @@ def plot_border_overlay(img_lm_fp):
 
     plot_bgr_img(img_lm_border, title="landmarks")
     plt.show()
-
-
-def plot_edges(set_of_edges: List, plot: bool = True) -> np.ndarray:
-    num = len(set_of_edges)
-    imgs = []
-    for es in set_of_edges:
-        img = np.zeros((256, 256))
-        for e in es:
-            for (r, c) in e:
-                img[r, c] = 1
-        imgs.append(img)
-    titles = ["Legacy"] + ["New {i}" if num > 2 else "New" for i in range(1, num + 1)]
-
-    im_diff = np.abs(imgs[0] - imgs[1]) if len(imgs) == 2 else None
-
-    if plot:
-        if im_diff is not None:
-            plt.figure()
-            plot_bgr_img(im_diff)
-            plt.title("Diff")
-            plt.show()
-
-        plt.figure()
-        for i, (t, img) in enumerate(zip(titles, imgs), start=1):
-            plt.subplot(1, num, i)
-            plot_bgr_img(img)
-            plt.title(t)
-        plt.show()
-
-    return im_diff

@@ -1,0 +1,24 @@
+img_length: 256
+input_channels: 1
+output_channels: 3
+
+# Local
+data_path: /data/test_images/512/GRK022/0000_22000__0000_24000
+save_path: /data/results
+
+# The beast at isys
+#data_path: /b1/data/endo_vids/256/synthetic-bladder11
+##data_path: /graphics/scratch/schuelej/sar/data/256/GRK022/0000_11000__0000_12000
+#save_path: /b1/johannes/git/diff_rendering/diffrendering_results
+
+
+validation_fraction: 0.1
+batch_size: 15
+
+use_small_dataset: true
+max_files: 200 # integer if above is true, else null
+
+
+img_dims_data_folder: 512
+process_image_dim: 512
+grey_scale_process_folder: threshed # filtered #skeleton # threshed # Used as the default folder if ImageType=None, else set ImageType='  ' in the DataGenerator Object

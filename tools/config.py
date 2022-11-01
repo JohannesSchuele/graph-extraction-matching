@@ -8,9 +8,9 @@ from tools.videos import convert_to_mp4, generate_time_tag_from_interval, trim_v
 ttag_pattern = "(.*)_(\d{4}_\d{5}__\d{4}_\d{5})"
 
 # Image and mask dimensions
-image_length = 256
+image_length = 512
 image_centre = (int(image_length / 2), int(image_length / 2))
-mask_radius = 102.5 if image_length == 256 else 205
+mask_radius = 102.5 if image_length == 256 else int(image_length/2)
 
 # Border attributes for classifying nodes
 border_size = 2
@@ -21,7 +21,7 @@ thr_plot = False
 pr_plot = False
 lm_plot = False
 poly_plot = False
-overlay_plot = False
+overlay_plot = True
 
 thr_save = True
 pr_save = True
@@ -59,7 +59,8 @@ class Config:
             else:
                 self.ext = ext
 
-        self.filepath = os.path.abspath(filepath)
+        #self.filepath = os.path.abspath(filepath)
+        self.filepath = filepath
         self.img_length = img_length
         self.is_synthetic = synthetic
         if not self.use_images:

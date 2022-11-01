@@ -8,7 +8,7 @@ clc
 % ..\7z.exe a -r .\filtered.zip .\**\filtered\*.png
 
 %% get video filepath
-% extract_video_filepath;
+extract_video_filepath;
 
 %%
 % If you use this software please cite the following paper:
@@ -26,8 +26,15 @@ plotImage = false;
 skip_existing_files = false; 
 
 %% Read Image
-% VIDEO_FILEPATH = VIDEO_FILEPATH_EXT(1:end-4); % read from config.py
-VIDEO_FILEPATH = 'C:\johann\07_HiWi\Git\SB_20220124_006'; % manual entry
+%VIDEO_FILEPATH = VIDEO_FILEPATH_EXT(1:end-4); % read from config.py
+% From_VIDEO_FILEPATH = '../data/test_images/images1/raw'; % manual entry
+% Folder = cd;
+% VIDEO_FILEPATH = fullfile(Folder, From_VIDEO_FILEPATH );
+%VIDEO_FILEPATH = 'C:/Users/Schüle/git/graph_extraction2/graph-extraction-datagen/data/test_images/images1/raw'
+
+From_VIDEO_FILEPATH = '../data/test_images'; % manual entry
+Folder = cd;
+VIDEO_FILEPATH = fullfile(Folder, From_VIDEO_FILEPATH );
 
 imageFolder = sprintf('%s/', VIDEO_FILEPATH);
 

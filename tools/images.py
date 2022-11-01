@@ -168,6 +168,18 @@ def apply_img_mask(conf):
             new_fp = fp.replace("filtered", "masked")
 
         img = cv2.imread(fp, cv2.IMREAD_GRAYSCALE)
+        # fp1 = "data\\test_images\\images1\\raw\\b1.png"
+        # img2 = cv2.imread(fp1)
+        #
+        #
+        # fp2 = "C:\\Users\\Schüle\\git\\graph_extraction2\\graph-extraction-datagen\\data\\test_images\\images1\\raw\\b1.png"
+        # img2 = cv2.imread(fp2)
+        # print(img2)
+        #
+        # img = cv2.imread(fp)
+        #
+        # cv2.imshow('image', img)
+
         masked = np.multiply(mask, img)
 
         cv2.imwrite(new_fp, masked)
